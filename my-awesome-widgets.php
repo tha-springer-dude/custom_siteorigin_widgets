@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: My Custom SiteOrigin Widgets
+Plugin Name: My Custom SiteOrigin Widget
 Description: A collection of custom widgets using SiteOrigin Widgets Bundle
 Version: 1.0
 Author: Willie Springer

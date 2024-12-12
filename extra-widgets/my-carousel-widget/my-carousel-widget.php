@@ -20,6 +20,18 @@ class Custom_Locations_Carousel_Widget extends SiteOrigin_Widget {
             array(),
             plugin_dir_path( __FILE__ )
         );
+        // Enqueue widget styles
+        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_widget_styles' ) );
+    }
+
+        // Enqueue custom widget styles
+    public function enqueue_widget_styles() {
+        wp_enqueue_style(
+            'locations-carousel-widget-styles',  // Handle for the stylesheet
+            plugin_dir_url( __FILE__ ) . 'styles.css',  // Path to the stylesheet
+            array(),  // Dependencies (if any)
+            filemtime( plugin_dir_path( __FILE__ ) . 'styles.css' )  // Version based on file modification time
+        );
     }
 
     function get_template_name( $instance ) {

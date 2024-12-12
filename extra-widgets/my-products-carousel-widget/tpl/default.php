@@ -103,7 +103,9 @@ if ( $query->have_posts() ) {
         echo '<div class="product-swiper-slide swiper-slide">';
         echo '<div class="product-card card">';
         echo '<div class="product-image-container">';
-        echo $get_image; // Use the image with duration badge
+        echo '<a href="' . esc_url( $product_link ) . '">' . $get_image . '</a>';
+        
+        //echo $get_image; // Use the image with duration badge
         echo '</div>';
         echo '<div class="product-card-body card-body">';
         echo '<p class="product-title">' . esc_html( $product_title ) . '</p>';

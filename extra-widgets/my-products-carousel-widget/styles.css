@@ -1,0 +1,166 @@
+/*
+Theme Name: Storefront Child
+Template: storefront
+Version: 1.0
+Description: A child theme for the Storefront theme.
+Author: Willie Springer
+Author URI: Your URL
+*/
+
+/* Product Swiper/Slider Styles */
+.product-swiper-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    gap: 10px;
+}
+
+.product-swiper-slide {
+    flex: 0 0 auto;
+    text-align: center;
+    width: auto;
+}
+
+.product-swiper-slide img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
+}
+
+.product-swiper-slide p {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #333;
+}
+
+/* Overlay Message */
+.woocommerce .products .product:hover .product-overlay-message {
+    display: block;
+}
+
+/* Scroll Container Styles */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    gap: 10px;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    text-align: center;
+    width: auto;
+}
+
+.scroll-item img {
+    height: 150px !important;
+    width: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 5px;
+}
+
+.scroll-item p {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #333;
+}
+
+/********* CART FORM *************/
+.product-query-form {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.number-input-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.number-input {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.number-input button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+.number-input input {
+    width: 50px;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.number-input button:hover {
+    background-color: #ddd;
+}
+
+.number-input button:active {
+    background-color: #ccc;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #005bb5;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+a.add_to_cart_button {
+    display: inline-block;
+    width: 100%;
+    background-color: #0073e6;
+    color: white !important;
+    text-decoration: none;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.add_to_cart_button:hover {
+    background-color: #005bb5;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}

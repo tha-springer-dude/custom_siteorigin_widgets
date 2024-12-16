@@ -1,0 +1,54 @@
+/* Style the list of related posts */
+.related-posts-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style each post item */
+.related-post-item {
+    margin-bottom: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style the featured image */
+.related-post-thumbnail {
+    float: left;
+    /* Make the image float to the left */
+    margin-right: 10px;
+    /* Space between the image and the text */
+    width: 80px;
+    /* Set the width of the image */
+    height: auto;
+}
+
+/* Style the content (title and excerpt) */
+.related-post-content {
+    overflow: hidden;
+    /* Ensure the text flows around the image */
+}
+
+/* Title above the image */
+.related-post-title {
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.related-post-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.related-post-title a:hover {
+    text-decoration: underline;
+}
+
+/* Excerpt floating around the image */
+.related-post-excerpt {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    margin-top: 5px;
+}

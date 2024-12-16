@@ -75,8 +75,11 @@ if ( $query->have_posts() ) {
                     $duration_number = $duration_parts[0];
                     $duration_unit = $duration_parts[1];
                     
-                    // Construct duration text
-                    $duration_text = $duration_number . ' ' . $duration_unit;
+                    if($duration_number > 1){
+                            $duration_text = $duration_number . ' ' . pll__( 'Tage', 'taminotravel' );
+                            }else{
+                            $duration_text = $duration_number . ' ' . pll__( 'Tag', 'taminotravel' );
+                            }
                 }
             } elseif ( $tour_organizer === "Flexi Pass" && function_exists('get_tour_sights') ) {
                 $sights = get_tour_sights( $tour_id );

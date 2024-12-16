@@ -35,6 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 // HTML for each card
                 echo '<div class="swiper-slide">';
+                 echo '<a href="' . esc_url( $place_link ) . '" class="card-link">';
                 echo '<div class="card">';
                 if ( $place_image ) {
                     echo '<img src="' . esc_url( $place_image ) . '" alt="' . esc_attr( $place_title ) . '">';
@@ -44,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 //echo '<p>Short description or details about the place.</p>';
                 echo '</div>'; // card-body
                 echo '</div>'; // card
+                echo '</a>'; // card-link
                 echo '</div>'; // swiper-slide
             }
         } else {

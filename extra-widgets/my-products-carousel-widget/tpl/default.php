@@ -83,7 +83,7 @@ if ( $query->have_posts() ) {
                 if ( $sights ) {
                     $duration_parts = explode( ' ', $sights );
                     $duration_number = $duration_parts[0];
-                    $duration_text = $duration_number . ' Sights';
+                    $duration_text = $duration_number .' '. pll__( 'Sehenswürdigkeiten', 'taminotravel' );
                 }
             }
         }

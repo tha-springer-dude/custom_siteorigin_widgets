@@ -8,9 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 
 // Display the widget title
-if ( !empty( $instance['widget_title'] ) ) {
-    echo '<h2 class="widget-title">' . esc_html( $instance['widget_title'] ) . '</h2><br>';
-}
+echo '<h2 class="widget-title">' . pll__( 'Empfohlene Beiträge', 'taminotravel' )  . '</h2><br>';
 
 ?>
 
@@ -36,6 +34,8 @@ if (!empty($current_location)) {
 
     // Step 4: Output the posts with featured image, title, and excerpt
     if ($related_posts->have_posts()) {
+
+
         echo '<ul class="related-posts-list">';
         while ($related_posts->have_posts()) {
             $related_posts->the_post();
@@ -55,7 +55,9 @@ if (!empty($current_location)) {
             // Display the featured image with the floating excerpt
             echo '<div class="related-post-content">';
             echo '<div class="related-post-thumbnail">' . $thumbnail . '</div>';
-            echo '<div class="related-post-excerpt">' . $excerpt . '</div>';
+            echo '<div class="related-post-excerpt">' . $excerpt.' <br/>';
+            echo '<a href="' . esc_url($location_url) . '">'. pll__( 'Weiterlesen', 'taminotravel' ) .'</a>';
+            echo '</div>';
             echo '</div>'; // Close the content div
 
             echo '</li>';

@@ -1,6 +1,6 @@
 <?php
 /*
-Widget Name: Show Blogposts for Locations in sidebar
+Widget Name: Show Locations for Blogposts in sidebar
 Description: A simple widget that displays blogposts for location
 Author: Willie Springer
 Author URI: http://example.com

@@ -1,30 +1,27 @@
 <?php
 // Prevent direct access
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
-// Initialize array for search parameters
+// Initialize search parameters
 $search_parameters = [];
 
-// Case 1: Single Location Page (ttbm_places)
-if (is_singular('ttbm_places')) { 
-    $search_parameters[] = get_the_title(); // Add the location title
+// Detect the current post
+global $post;
+$product_id = $post->ID;
+
+// Case 1: Single Location Page (tamino_travel_orte)
+if (is_singular('tamino_travel_orte')) {
+    $search_parameters[] = get_the_title(); // Add location title as search parameter
 }
 
-// Case 2: Product Page (WooCommerce Product)
+// Case 2: Single Product Page (WooCommerce Product)
 if (is_singular('product')) {
-    global $post;
-
-    $product_sku = get_post_meta($post->ID, '_sku', true);
-    $tour_id = get_tourid_from_sku_widget($product_sku);
-
-    if ($tour_id) {
-        // Fetch associated locations
-        $locations = get_locations($tour_id);
-        // Merge locations into search parameters
-        $search_parameters = array_merge($search_parameters, $locations);
-    }
+    // Fetch associated locations
+    $locations = get_locations($product_id);
+    // Merge locations into search parameters
+    $search_parameters = array_merge($search_parameters, $locations);
 }
 
 // Execute blog post search if there are valid parameters
@@ -32,25 +29,16 @@ if (!empty($search_parameters)) {
     get_blogposts_prototype($search_parameters);
 }
 
-// Function to extract tour ID from SKU
-function get_tourid_from_sku_widget($sku) {
-    return (!empty($sku) && strpos($sku, 'taminotour-') === 0) ? str_replace('taminotour-', '', $sku) : null;
-}
-
 // Function to get locations related to a product
 function get_locations($product_id) {
-    $locations_serialized = get_post_meta($product_id, 'ttbm_hiphop_places', true);
-    $locations = maybe_unserialize($locations_serialized);
+    $locations = get_post_meta($product_id, '_tamino_travel_orte', true);
     $location_names = [];
 
     if (is_array($locations) && !empty($locations)) {
-        foreach ($locations as $location) {
-            $place_id = $location['ttbm_city_place_id'] ?? null;
-            if ($place_id) {
-                $place_post = get_post($place_id);
-                if ($place_post && $place_post->post_type === 'ttbm_places') {
-                    $location_names[] = $place_post->post_title; // Store location name
-                }
+        foreach ($locations as $place_id) { // Directly use place ID
+            $place_post = get_post($place_id);
+            if ($place_post && $place_post->post_type === 'tamino_travel_orte') {
+                $location_names[] = $place_post->post_title; // Store location name
             }
         }
     }
@@ -59,17 +47,9 @@ function get_locations($product_id) {
 }
 
 // Function to fetch and display related blog posts
-function get_blogposts_prototypeddd($search_param_prototype) {
-    if (!empty($search_param_prototype)) {
-        foreach ((array) $search_param_prototype as $param) {
-            get_blogposts($param);
-        }
-    }
-}
-
 function get_blogposts_prototype($search_param_prototype) {
-    $unique_post_ids = []; // ✅ This tracks all unique posts across locations
-    $unique_posts = []; 
+    $unique_post_ids = []; // ✅ Track unique post IDs
+    $unique_posts = [];
 
     if (!empty($search_param_prototype)) {
         foreach ((array) $search_param_prototype as $param) {
@@ -116,8 +96,6 @@ function get_blogposts_prototype($search_param_prototype) {
         }
         echo '</ul>';
     } else {
-        echo '<p>No related blog posts found for these locations.</p>';
+        echo '<p>' . pll__('Keine verwandten Blogbeiträge gefunden.', 'taminotravel') . '</p>';
     }
 }
-
-?>

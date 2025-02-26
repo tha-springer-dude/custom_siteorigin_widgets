@@ -1,54 +1,41 @@
-/* Style the list of related posts */
-.related-posts-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+/* Ensure the container scrolls horizontally */
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    gap: 15px; /* Adds space between items */
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
 }
 
-/* Style each post item */
-.related-post-item {
-    margin-bottom: 15px;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
+/* Style each product item */
+.horizontal-scroll-item {
+    flex: 0 0 auto; /* Prevents items from resizing */
+    width: 250px; /* Adjust width based on design */
+    scroll-snap-align: start;
 }
 
-/* Style the featured image */
-.related-post-thumbnail {
-    float: left;
-    /* Make the image float to the left */
-    margin-right: 10px;
-    /* Space between the image and the text */
-    width: 80px;
-    /* Set the width of the image */
+/* Ensure images fit properly */
+.product-image-container img {
+    width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
-/* Style the content (title and excerpt) */
-.related-post-content {
-    overflow: hidden;
-    /* Ensure the text flows around the image */
-}
-
-/* Title above the image */
-.related-post-title {
+/* Adjust text below the images */
+.product-image-overlay-title {
+    display: block;
     font-size: 16px;
-    margin: 0;
-    margin-bottom: 5px;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
 }
 
-.related-post-title a {
-    color: #333;
-    text-decoration: none;
-}
-
-.related-post-title a:hover {
-    text-decoration: underline;
-}
-
-/* Excerpt floating around the image */
-.related-post-excerpt {
+/* Adjust price styling */
+.product-image-price-overlay {
+    display: block;
     font-size: 14px;
     color: #555;
-    line-height: 1.4;
-    margin-top: 5px;
+    text-align: center;
+    margin-top: 3px;
 }

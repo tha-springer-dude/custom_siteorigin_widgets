@@ -1,7 +1,7 @@
 <?php
 /*
 Widget Name: Show Tourlocations
-Description: A simple widget that displays woocommerce loop
+Description: A simple widget that displays Locations in a horizontal layer
 Author: Willie Springer
 Author URI: http://example.com
 */

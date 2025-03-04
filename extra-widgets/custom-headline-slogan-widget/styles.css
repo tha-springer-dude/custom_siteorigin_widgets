@@ -1,0 +1,62 @@
+.mh-hero-container{
+
+}
+
+.mh-position-relative{
+
+}
+
+.mh-wp-block-cover{
+    align-items: center;
+    background-position: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    min-height: 430px;
+    overflow: hidden;
+    overflow: clip;
+    padding: 1em;
+    position: relative;
+}
+
+.mh-is-light{
+
+}
+
+.mh-wp-block-cover__background{ 
+    background: linear-gradient(180deg, rgb(0, 62, 126) 0%, rgba(155, 81, 224, 0) 58%) !important;
+    opacity: .7 !important;
+}
+
+.mh-has-background-dim-0{
+
+}
+
+.mh-has-background-dim{
+
+}
+
+.mh-text_layer{
+    font-size: 3.5rem !important;
+        position: relative;
+        z-index: 10;
+}
+
+.mh-wp-block-heading_slogan{
+    font-family: 'Poppins', sans-serif;
+        color: #fff;
+        font-size: 1.5rem !important;
+        text-shadow: 2px 2px 15px #003e7e;
+        margin-top: 0;
+        font-weight: 700;
+        z-index: 10;
+}
+
+.mh-wp-block-heading{
+        font-family: 'Poppins', sans-serif;
+                text-shadow: 2px 2px 15px #003e7e;
+        color: #fff;
+        font-style: normal;
+        font-weight: 700;
+        z-index: 10;
+}

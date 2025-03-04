@@ -34,8 +34,8 @@ if ( !empty( $instance['widget_title'] ) ) {
 }
 ?>
 
-<div class="product-swiper-container swiper-container">
-<div class="product-swiper-wrapper swiper-wrapper">
+<div class="mpc-product-swiper-container mpc-swiper-container">
+<div class="mpc-product-swiper-wrapper mpc-swiper-wrapper">
 <?php
 // WP Query to get WooCommerce products from language-specific category
 $args = array(
@@ -97,23 +97,23 @@ if ( $query->have_posts() ) {
         $get_image = $product->get_image( $image_size );
         
         // Add the duration text inside the badge
-        $get_image = '<span class="wpd-sale-thumbnail"><span class="wpd-sale-badges">' . esc_html($duration_text) . '</span>' . $get_image . '</span>';
+        $get_image = '<span class="mpc-wpd-sale-thumbnail"><span class="mpc-wpd-sale-badges">' . esc_html($duration_text) . '</span>' . $get_image . '</span>';
         
         $product_title = get_the_title();
         $product_link = get_permalink();
 
         // HTML for each card
-        echo '<div class="product-swiper-slide swiper-slide">';
-        echo '<div class="product-card card">';
-        echo '<div class="product-image-container">';
+        echo '<div class="mpc-product-swiper-slide mpc-swiper-slide">';
+        echo '<div class="mpc-product-card mpc-card">';
+        echo '<div class="mpc-product-image-container">';
         echo '<a href="' . esc_url( $product_link ) . '">' . $get_image . '</a>';
         
         //echo $get_image; // Use the image with duration badge
         echo '</div>';
         echo '<div class="product-card-body card-body">';
-        echo '<p class="product-title">' . esc_html( $product_title ) . '</p>';
+        echo '<span class="mpc-product-image-overlay-title">' . esc_html( $product_title ) . '</span>';
         // Optional: Display product price
-        echo '<p class="product-price price">' . $product->get_price_html() . '</p>';
+        echo '<span class="mpc-product-image-price-overlay">' . $product->get_price_html() . '</span>';
         echo '</div>'; // product-card-body
         echo '</div>'; // product-card
         echo '</div>'; // product-swiper-slide

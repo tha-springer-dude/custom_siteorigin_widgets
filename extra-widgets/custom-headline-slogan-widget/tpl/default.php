@@ -12,13 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <!-- Hero Section (Background Image) -->
     
-    <div class="hero-container position-relative">
-        <div class="wp-block-cover is-light">
+    <div class="mh-hero-container mh-position-relative">
+        <div class="mh-wp-block-cover mh-is-light">
             <!-- Background Overlay with Gradient and Opacity -->
-            <span aria-hidden="true" class="wp-block-cover__background has-background-dim-0 has-background-dim"></span>
+            <span aria-hidden="true" class="mh-wp-block-cover__background mh-has-background-dim-0 mh-has-background-dim"></span>
             
            
-            <div class="text_layer">
+            <div class="mh-text_layer">
 
                 <h1 class="wp-block-heading_slogan">
                     <?php echo wp_kses_post( $instance['slogan'] ); ?>

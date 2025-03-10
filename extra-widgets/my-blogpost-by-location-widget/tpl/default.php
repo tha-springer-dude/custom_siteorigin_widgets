@@ -16,7 +16,13 @@ if (is_singular('tamino_travel_orte')) {
     $search_parameters[] = get_the_title(); // Add location title as search parameter
 }
 
-// Case 2: Single Product Page (WooCommerce Product)
+// Case 2: Single Location Page (tamino_tr_activities)
+if (is_singular('tamino_tr_activities')) {
+    $search_parameters[] = get_the_title(); // Add location title as search parameter
+}
+
+
+// Case 3: Single Product Page (WooCommerce Product)
 if (is_singular('product')) {
     // Fetch associated locations
     $locations = get_locations($product_id);
@@ -48,6 +54,7 @@ function get_locations($product_id) {
 
 // Function to fetch and display related blog posts
 function get_blogposts_prototype($search_param_prototype) {
+    //error_log("Searchterm is: ".$search_param_prototype[0]);
     $unique_post_ids = []; // ✅ Track unique post IDs
     $unique_posts = [];
 

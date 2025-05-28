@@ -39,3 +39,31 @@
     text-align: center;
     margin-top: 3px;
 }
+
+
+.linked-activities-wrapper {
+  margin-top: 1em;
+}
+
+.linked-activity-card {
+    margin-bottom: 1.5em;
+    overflow: hidden;
+}
+
+.activity-thumb {
+    float: left;
+    margin-right: 1em;
+    width: 80px;
+    height: 80px;
+}
+
+.activity-thumb img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.activity-text {
+    overflow: hidden;
+    /* ensures text wraps nicely */
+}

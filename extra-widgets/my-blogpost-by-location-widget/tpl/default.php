@@ -53,48 +53,39 @@ function get_locations($product_id) {
 }
 
 // Function to fetch and display related blog posts
-function get_blogposts_prototype($search_param_prototype) {
-    //error_log("Searchterm is: ".$search_param_prototype[0]);
-    $unique_post_ids = []; // ✅ Track unique post IDs
-    $unique_posts = [];
+function get_blogposts_prototype($unused = null) {
+    $current_id = get_the_ID();
+    $post_type = get_post_type($current_id);
 
-    if (!empty($search_param_prototype)) {
-        foreach ((array) $search_param_prototype as $param) {
-            $search_string = sanitize_title($param); // Convert location to slug
-
-            $related_posts = new WP_Query([
-                'post_type'      => 'post',
-                'tag'            => $search_string,
-                'posts_per_page' => 5,
-            ]);
-
-            if ($related_posts->have_posts()) {
-                while ($related_posts->have_posts()) {
-                    $related_posts->the_post();
-                    $post_id = get_the_ID();
-
-                    // ✅ **Deduplication: Ensure each post is only added once**
-                    if (!isset($unique_post_ids[$post_id])) {
-                        $unique_post_ids[$post_id] = true; // Track unique IDs
-                        $unique_posts[] = get_post($post_id); // Store post object
-                    }
-                }
-            }
-
-            wp_reset_postdata();
-        }
+    // Match against locations or activities
+    if ($post_type === 'tamino_travel_orte') {
+        $acf_key = 'linked_locations';
+    } elseif ($post_type === 'tamino_tr_activities') {
+        $acf_key = 'linked_activities';
+    } else {
+        return; // Skip unsupported post types
     }
 
-    // ✅ **Now we only display unique posts**
-    if (!empty($unique_posts)) {
+    $related = new WP_Query([
+        'post_type'      => 'post',
+        'posts_per_page' => 5,
+        'meta_query'     => [[
+            'key'     => $acf_key,
+            'value'   => '"' . $current_id . '"',
+            'compare' => 'LIKE',
+        ]]
+    ]);
+
+    if ($related->have_posts()) {
         echo '<ul class="related-posts-list">';
-        foreach ($unique_posts as $post) {
-            $thumbnail = get_the_post_thumbnail($post->ID, 'thumbnail');
-            $excerpt = get_the_excerpt($post->ID);
-            $post_url = get_permalink($post->ID);
+        while ($related->have_posts()) {
+            $related->the_post();
+            $thumbnail = get_the_post_thumbnail(get_the_ID(), 'thumbnail');
+            $excerpt   = get_the_excerpt();
+            $post_url  = get_permalink();
 
             echo '<li class="related-post-item">';
-            echo '<h3 class="related-post-title"><a href="' . esc_url($post_url) . '">' . esc_html($post->post_title) . '</a></h3>';
+            echo '<h3 class="related-post-title"><a href="' . esc_url($post_url) . '">' . esc_html(get_the_title()) . '</a></h3>';
             echo '<div class="related-post-content">';
             echo '<div class="related-post-thumbnail">' . $thumbnail . '</div>';
             echo '<div class="related-post-excerpt">' . esc_html($excerpt) . ' <br/>';
@@ -105,4 +96,42 @@ function get_blogposts_prototype($search_param_prototype) {
     } else {
         echo '<p>' . pll__('Keine verwandten Blogbeiträge gefunden.', 'taminotravel') . '</p>';
     }
+
+    wp_reset_postdata();
 }
+
+
+if (is_singular('tamino_travel_orte')) {
+    show_activities_linked_to_current_place();
+}
+
+function show_activities_linked_to_current_place() {
+    $activities = get_field('ort_linked_activities'); // ACF field on Ort post
+
+    if (!empty($activities)) {
+        echo '<h3 class="widget-title">' . pll__('Beliebte Aktivitäten', 'taminotravel') . '</h3>';
+echo '<div class="linked-activities-wrapper">';
+foreach ($activities as $activity) {
+    $title   = get_the_title($activity->ID);
+    $excerpt = get_the_excerpt($activity->ID);
+    $url     = get_permalink($activity->ID);
+    $thumb   = get_the_post_thumbnail($activity->ID, 'thumbnail');
+
+    echo '<div class="linked-activity-card">';
+    echo '  <h4><a href="' . esc_url($url) . '">' . esc_html($title) . '</a></h4>';
+    echo '  <div class="activity-thumb">' . $thumb . '</div>';
+    echo '  <p>' . esc_html(wp_trim_words($excerpt, 20)) . '</p>';
+    echo '<a href="' . esc_url($post_url) . '">' . pll__('Weiterlesen', 'taminotravel') . '</a>';
+    echo '</div>';
+
+
+    }
+    echo '</div>';
+
+    } else {
+        echo '<p>' . pll__('Keine Aktivitäten verknüpft.', 'taminotravel') . '</p>';
+    }
+}
+
+
+

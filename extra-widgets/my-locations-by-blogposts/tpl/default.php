@@ -1,82 +1,66 @@
 <?php
-// Ensure direct access is prevented
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
-?>
 
-<?php
-
-// Display the widget title
-
-echo '<h2 class="widget-title">' . pll__( 'Interessante Orte', 'taminotravel' ) . '</h2><br>';
-
-// Get the tags of the current post
-$post_tags = get_the_tags();
-
-if ($post_tags) {
-    // Prepare the tag names
-    $tag_names = array();
-    foreach ($post_tags as $tag) {
-        $tag_names[] = $tag->name;
-    }
-
-    // Create a search string using SQL REGEXP for fuzzy matching
-    $search_string = implode('|', array_map('esc_sql', $tag_names));
-
-    // Query locations based on fuzzy matching of tag names in the titles
-    global $wpdb;
-    $locations = $wpdb->get_results(
-        $wpdb->prepare(
-            "
-            SELECT p.ID, p.post_title, p.post_name 
-            FROM {$wpdb->posts} p
-            WHERE p.post_type = 'ttbm_places' 
-            AND p.post_status = 'publish'
-            AND p.post_title REGEXP %s
-            ",
-            $search_string
-        )
-    );
-
-    // Check if we have matching locations
-    if ($locations) {
-        echo '<ul class="related-posts-list">'; // Start the list
-
-        foreach ($locations as $location) {
-            $location_url = get_permalink($location->ID);
-            $location_title = esc_html($location->post_title);
-
-            // Get the featured image (small size)
-            $thumbnail = get_the_post_thumbnail($location->ID, 'thumbnail'); // Use 'thumbnail' size
-
-            // Get the excerpt for the location
-            $excerpt = get_the_excerpt($location->ID);
-
-            // Start the list item for each location
-            echo '<li class="related-post-item">';
-            
-            // Display the title above the image
-            echo '<h3 class="related-post-title"><a href="' . esc_url($location_url) . '">' . $location_title . '</a></h3>';
-            
-            // Display the featured image with the floating excerpt
-            echo '<div class="related-post-content">';
-            echo '<div class="related-post-thumbnail">' . $thumbnail . '</div>';
-            echo '<div class="related-post-excerpt">' . esc_html($excerpt) . ' <br/>';
-            echo '<a href="' . esc_url($location_url) . '">' . pll__( 'Weiterlesen', 'taminotravel' ) . '</a>';
-            echo '</div>';
-            echo '</div>'; // Close the content div
-
-            echo '</li>';
-        }
-
-        echo '</ul>'; // End the list
-    } else {
-        echo 'No matching locations found based on the post tags.';
-    }
+// 🧠 Determine how many items to show based on context
+if (is_product()) {
+    $count = 2; // WooCommerce product page
+} elseif (is_single() || is_home() || is_archive()) {
+    $count = 4; // Blog post, archive, blog home
 } else {
-    echo 'This post has no tags.';
+    $count = 3; // Fallback
 }
+
+// 🔹 Show Random Locations
+echo '<h3 class="widget-title">' . pll__('Interessante Orte', 'taminotravel') . '</h3>';
+echo '<div class="linked-activities-wrapper">';
+
+$random_orte = get_posts([
+    'post_type'      => 'tamino_travel_orte',
+    'posts_per_page' => $count,
+    'orderby'        => 'rand',
+    'post_status'    => 'publish',
+]);
+
+foreach ($random_orte as $ort) {
+    $title   = get_the_title($ort->ID);
+    $excerpt = get_the_excerpt($ort->ID);
+    $url     = get_permalink($ort->ID);
+    $thumb   = get_the_post_thumbnail($ort->ID, 'thumbnail');
+
+    echo '<div class="linked-activity-card">';
+    echo '  <h4><a href="' . esc_url($url) . '">' . esc_html($title) . '</a></h4>';
+    echo '  <div class="activity-thumb">' . $thumb . '</div>';
+    echo '  <p>' . esc_html(wp_trim_words($excerpt, 20)) . '</p>';
+    echo '  <a href="' . esc_url($url) . '">' . pll__('Weiterlesen', 'taminotravel') . '</a>';
+    echo '</div>';
+}
+echo '</div>';
+
+// 🔹 Show Random Activities
+echo '<h3 class="widget-title">' . pll__('Beliebte Aktivitäten', 'taminotravel') . '</h3>';
+echo '<div class="linked-activities-wrapper">';
+
+$random_activities = get_posts([
+    'post_type'      => 'tamino_tr_activities',
+    'posts_per_page' => $count,
+    'orderby'        => 'rand',
+    'post_status'    => 'publish',
+]);
+
+foreach ($random_activities as $activity) {
+    $title   = get_the_title($activity->ID);
+    $excerpt = get_the_excerpt($activity->ID);
+    $url     = get_permalink($activity->ID);
+    $thumb   = get_the_post_thumbnail($activity->ID, 'thumbnail');
+
+    echo '<div class="linked-activity-card">';
+    echo '  <h4><a href="' . esc_url($url) . '">' . esc_html($title) . '</a></h4>';
+    echo '  <div class="activity-thumb">' . $thumb . '</div>';
+    echo '  <p>' . esc_html(wp_trim_words($excerpt, 20)) . '</p>';
+    echo '  <a href="' . esc_url($url) . '">' . pll__('Weiterlesen', 'taminotravel') . '</a>';
+    echo '</div>';
+}
+echo '</div>';
 ?>
-
-
